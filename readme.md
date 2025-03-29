@@ -26,7 +26,7 @@ You can Install any Database, but you need to edit many parts of **model.py**. �
 
 After done all [in Installation](#Installation) you have to config Discord Token ([You can read this documentation how to get](https://discord.com/developers/docs/topics/oauth2)) and your any **LM or LLM API**. in case i use [openchat-3.6-8b-20240522](https://huggingface.co/lmstudio-community/openchat-3.6-8b-20240522-GGUF) with [LM Studio](https://lmstudio.ai) *(Local server, Only for test)* (˶˃⤙˂˶)
 
-**model.py** line 149. Change it to your Discord Token
+**main.py** line 149. Change it to your Discord Token
 ```python
 bot.run("YOUR TOKEN")
 ```
