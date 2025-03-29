@@ -3,7 +3,6 @@ import os
 import json
 import asyncio
 
-from dotenv import load_dotenv
 from discord.ext import commands
 from discord import app_commands
 
@@ -144,6 +143,4 @@ async def on_message(message):
                 
     await bot.process_commands(message)
 
-
-load_dotenv()
 bot.run(os.getenv("YOUR TOKEN"))

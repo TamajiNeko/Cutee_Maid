@@ -3,8 +3,6 @@ import json
 import sys
 import os
 
-from dotenv import load_dotenv
-
 if len(sys.argv):
     user_input = sys.argv[1]
     user_id = sys.argv[2]
