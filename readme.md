@@ -20,7 +20,7 @@ Requests
 py -m pip install requests
 ```
 
-You can Install any Database, but you need to edit many parts of **model.py**.
+You can Install any Database, but you need to edit many parts of **model.py**. ૮ ˶ᵔ ᵕ ᵔ˶ ა
 
 ## Usage (￣▽￣*)ゞ
 
