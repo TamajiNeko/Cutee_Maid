@@ -3,21 +3,22 @@ import json
 import sys
 import os
 
-if len(sys.argv):
+if len(sys.argv): #Receive arguments send by main.py 
     user_input = sys.argv[1]
     user_id = sys.argv[2]
-    channel_id = sys.argv[3]
+    user_name = sys.argv[3]
+    channel_id = sys.argv[4]
 
     chat_history = {}
 
-    file_path = os.path.join("history", f"{channel_id}.json")
+    file_path = os.path.join("history", f"{channel_id}.json") #History directory you can change it
 
     def load_history():
         global chat_history
         try:
             os.makedirs("history", exist_ok=True)
             
-            if os.path.exists(file_path):
+            if os.path.exists(file_path): #load history if exitsts else create new
                 with open(file_path, "r", encoding="utf-8") as f:
                     chat_history = json.load(f)
             else:
@@ -37,17 +38,13 @@ if len(sys.argv):
     def user_history(user_id, text):
         global chat_history
         
-        if not chat_history:
+        if not chat_history: #To make sure history exitsts
             chat_history = load_history()
         
         if user_id not in chat_history:
             chat_history[user_id] = []
         
-        messages = chat_history[user_id][-100:]
-        messages.append({"role": "user", "content": text})
-        
-        
-        chat_history[user_id].extend([
+        chat_history[user_id].extend([ #Add new message group(user message, AI response) to history for user
             {"role": "user", "content": text},
             {"role": "assistant", "content": ai_response}
         ])
@@ -56,9 +53,9 @@ if len(sys.argv):
         
         return ai_response
     
-    API_URL = "YOUR API"
+    API_URL = "YOUR API" #Enter your API URL
 
-    with open("prompt.txt", "r", encoding="utf-8") as file:
+    with open("src/prompt.txt", "r", encoding="utf-8") as file: #Open prompt
         SYSTEM_PROMPT = file.read()
 
     base_messages = [{"role": "system", "content": SYSTEM_PROMPT}]
@@ -66,10 +63,10 @@ if len(sys.argv):
     chat_history = load_history()
 
     messages = base_messages.copy()
-    messages.extend(chat_history.get(user_id, [])[-50:])
-    messages.append({"role": "user", "content": user_input})
+    messages.extend(chat_history.get(user_id, [])[-100:]) #Read last 100 message from user and add to messages group
+    messages.append({"role": "user", "content": user_input}) #Add user input to messages group
 
-    response = requests.post(
+    response = requests.post( #post messages group to AI
         API_URL,
         json={
             "model": "openchat-3.6-8b-20240522",
